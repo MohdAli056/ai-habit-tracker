@@ -241,7 +241,7 @@ async function runTests() {
       try {
         const liveRes = await generateText({
           prompt: 'Respond with the word "OK" only.',
-          maxOutputTokens: 10,
+          maxOutputTokens: 100,
         });
         assert(
           liveRes.provider === 'gemini' && liveRes.text.length > 0,
@@ -263,7 +263,7 @@ async function runTests() {
     console.log('\n======================================================');
     console.log(`  PHASE 10 TEST RESULTS: ${passedCount} PASSED, ${failedCount} FAILED`);
     console.log('======================================================\n');
-    process.exit(failedCount > 0 ? 1 : 0);
+    process.exitCode = failedCount > 0 ? 1 : 0;
   }
 }
 

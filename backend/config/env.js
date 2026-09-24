@@ -28,7 +28,7 @@ export const env = {
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
 
   /** Gemini model identifier. Falls back to a sensible default. */
-  GEMINI_MODEL: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+  GEMINI_MODEL: process.env.GEMINI_MODEL || 'gemini-3.6-flash',
 
   /** Allowed frontend origin(s). Comma-separated if multiple. */
   CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
