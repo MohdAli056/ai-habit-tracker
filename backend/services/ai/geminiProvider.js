@@ -123,13 +123,17 @@ export class GeminiProvider {
 
       if (
         errStatus === 429 ||
+        errStatus === 503 ||
         errMsg.includes('429') ||
+        errMsg.includes('503') ||
         errMsg.includes('RESOURCE_EXHAUSTED') ||
+        errMsg.includes('UNAVAILABLE') ||
+        errMsg.includes('high demand') ||
         errMsg.includes('quota')
       ) {
         throw new AIError(
           AIErrorCodes.AI_RATE_LIMITED,
-          'Gemini rate limit or quota exceeded. Please wait a moment and try again.',
+          'Gemini AI is currently experiencing high demand. Please try again in a moment.',
         );
       }
 
