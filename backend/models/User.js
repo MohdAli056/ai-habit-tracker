@@ -32,25 +32,19 @@ const userSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-// ---------------------------------------------------------------------------
-// Hash password before saving — only when it has been modified.
-// ---------------------------------------------------------------------------
+// Hash password before saving if modified
 userSchema.pre('save', async function hashPassword() {
   if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(12);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// ---------------------------------------------------------------------------
-// Instance method: compare a candidate plaintext password to the stored hash.
-// ---------------------------------------------------------------------------
+// Compare plaintext candidate password to stored hash
 userSchema.methods.matchPassword = async function matchPassword(candidate) {
   return bcrypt.compare(candidate, this.password);
 };
 
-// ---------------------------------------------------------------------------
-// Remove password from every JSON serialisation.
-// ---------------------------------------------------------------------------
+// Automatically strip password from JSON representation
 userSchema.set('toJSON', {
   transform(_doc, ret) {
     delete ret.password;

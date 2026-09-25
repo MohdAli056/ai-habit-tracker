@@ -1,27 +1,9 @@
-/**
- * AuthContext — authentication state and actions.
- *
- * Provides:
- *   user           — the authenticated user object, or null
- *   token          — the JWT string, or null
- *   loading        — true while the initial /me check is in flight
- *   isAuthenticated — true when user is non-null
- *   login(email, password)                  — authenticate, store token
- *   register(name, email, password)         — create account, store token
- *   logout()                                — clear auth state
- *   refreshUser()                           — reload user from /me
- *   updateProfile(data)                     — update name/morningMotivation
- */
-
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { authApi } from '../api/auth.js';
 import { TOKEN_KEY } from '../api/client.js';
 
 const USER_KEY = 'habit_tracker_user';
 
-// ---------------------------------------------------------------------------
-// Helpers to read/write localStorage safely.
-// ---------------------------------------------------------------------------
 function readStoredToken() {
   return localStorage.getItem(TOKEN_KEY) || null;
 }
@@ -45,9 +27,6 @@ function clearStorage() {
   localStorage.removeItem(USER_KEY);
 }
 
-// ---------------------------------------------------------------------------
-// Context
-// ---------------------------------------------------------------------------
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
@@ -55,8 +34,6 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(readStoredToken);
   const [loading, setLoading] = useState(Boolean(readStoredToken()));
 
-  // On mount: if a token exists, verify it with /me.
-  // If /me fails (expired/invalid), wipe auth state silently.
   useEffect(() => {
     const storedToken = readStoredToken();
     if (!storedToken) {
@@ -78,9 +55,6 @@ export function AuthProvider({ children }) {
       .finally(() => setLoading(false));
   }, []);
 
-  // ---------------------------------------------------------------------------
-  // login
-  // ---------------------------------------------------------------------------
   const login = useCallback(async (email, password) => {
     const { data } = await authApi.login({ email, password });
     persist(data.token, data.user);
@@ -89,9 +63,6 @@ export function AuthProvider({ children }) {
     return data;
   }, []);
 
-  // ---------------------------------------------------------------------------
-  // register
-  // ---------------------------------------------------------------------------
   const register = useCallback(async (name, email, password) => {
     const { data } = await authApi.register({ name, email, password });
     persist(data.token, data.user);
@@ -100,18 +71,12 @@ export function AuthProvider({ children }) {
     return data;
   }, []);
 
-  // ---------------------------------------------------------------------------
-  // logout
-  // ---------------------------------------------------------------------------
   const logout = useCallback(() => {
     clearStorage();
     setToken(null);
     setUser(null);
   }, []);
 
-  // ---------------------------------------------------------------------------
-  // refreshUser — re-fetch current user from the server.
-  // ---------------------------------------------------------------------------
   const refreshUser = useCallback(async () => {
     const { data } = await authApi.me();
     setUser(data.user);
@@ -119,9 +84,6 @@ export function AuthProvider({ children }) {
     return data.user;
   }, []);
 
-  // ---------------------------------------------------------------------------
-  // updateProfile
-  // ---------------------------------------------------------------------------
   const updateProfile = useCallback(async (updates) => {
     const { data } = await authApi.updateProfile(updates);
     setUser(data.user);

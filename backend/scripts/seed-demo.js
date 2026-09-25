@@ -1,5 +1,5 @@
 /**
- * Phase 17 — Seed / Demo Data Generator
+ * Cadence — Database Seed & Demo Data Generator
  *
  * Populates MongoDB Atlas with a realistic demo account ('demo@cadence.local')
  * and 90 days of deterministic habit tracking history.

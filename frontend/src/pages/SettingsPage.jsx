@@ -1,11 +1,5 @@
 /**
  * SettingsPage — Profile settings and AI preferences.
- *
- * Implements Phase 15 requirements:
- *   - Allows toggling `morningMotivation` preference on/off.
- *   - Wires directly to `updateProfile({ morningMotivation })` in AuthContext.
- *   - Shows saving indicator and instant feedback.
- *   - Respects user data without redesigning existing layouts.
  */
 
 import { Check, Loader2, LogOut, Settings as SettingsIcon, Sparkles, User as UserIcon } from 'lucide-react';

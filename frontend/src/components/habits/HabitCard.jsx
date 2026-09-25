@@ -2,7 +2,7 @@
  * HabitCard — displays a single habit with its actions.
  *
  * Actions: Complete/Uncomplete, Edit, Archive/Unarchive, Delete, Move Up/Down.
- * Completion calls the real API (Phase 6).
+ * Completion calls the real API.
  */
 
 import { Archive, ArchiveRestore, Check, ChevronDown, ChevronUp, Loader2, Pencil, Trash2 } from 'lucide-react';

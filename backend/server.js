@@ -1,16 +1,3 @@
-/**
- * Cadence — Express server entry point.
- *
- * Startup sequence:
- *   1. Load .env into process.env
- *   2. Import centralised config
- *   3. Build and configure the Express app
- *   4. Register API routes
- *   5. Register 404 and error-handling middleware (must be last)
- *   6. Connect to MongoDB
- *   7. Start the HTTP server
- */
-
 import 'dotenv/config';
 
 import cors from 'cors';
@@ -26,9 +13,7 @@ import habitsRouter from './routes/habits.js';
 import healthRouter from './routes/health.js';
 import logsRouter from './routes/logs.js';
 
-// ---------------------------------------------------------------------------
-// CORS
-// ---------------------------------------------------------------------------
+// CORS configuration
 const allowedOrigins = new Set(
   env.CLIENT_URL.split(',')
     .map((url) => url.trim().replace(/\/$/, ''))
@@ -53,32 +38,23 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-// ---------------------------------------------------------------------------
-// Express app
-// ---------------------------------------------------------------------------
 const app = express();
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '1mb' }));
 
-// ---------------------------------------------------------------------------
-// Routes
-// ---------------------------------------------------------------------------
+// API Routes
 app.use('/api/health', healthRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/habits', habitsRouter);
 app.use('/api/logs', logsRouter);
 app.use('/api/ai', aiRouter);
 
-// ---------------------------------------------------------------------------
-// Error handlers — registered after all routes.
-// ---------------------------------------------------------------------------
+// Error Handling
 app.use(notFound);
 app.use(errorHandler);
 
-// ---------------------------------------------------------------------------
-// Boot: connect DB then start server.
-// ---------------------------------------------------------------------------
+// Server startup
 async function start() {
   await connectDB();
   const server = app.listen(env.PORT, '0.0.0.0', () => {

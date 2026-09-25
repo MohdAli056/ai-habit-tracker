@@ -1,12 +1,16 @@
 {
   "name": "cadence-backend",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Production-ready MERN backend API for Cadence AI Habit Tracker",
   "private": true,
   "type": "module",
+  "license": "MIT",
   "scripts": {
-    "dev": "nodemon server.js",
     "start": "node server.js",
-    "seed:demo": "node scripts/seed-demo.js"
+    "dev": "nodemon server.js",
+    "seed": "node scripts/seed-demo.js",
+    "seed:demo": "node scripts/seed-demo.js",
+    "test": "node scripts/test-streak.js"
   },
   "dependencies": {
     "@google/genai": "^2.23.0",

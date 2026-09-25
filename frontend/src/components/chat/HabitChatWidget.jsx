@@ -116,7 +116,7 @@ export function HabitChatWidget({ hasHabits = true }) {
 
   return (
     <aside className="chat-widget-root" aria-label="AI Habit Assistant">
-      {/* ── Floating Launcher Button ─────────────────────────────────────── */}
+      {/*  */}
       {!isOpen && (
         <button
           type="button"
@@ -130,7 +130,7 @@ export function HabitChatWidget({ hasHabits = true }) {
         </button>
       )}
 
-      {/* ── Slide-up Floating Chat Card ──────────────────────────────────── */}
+      {/*  */}
       {isOpen && (
         <section
           id="habit-chat-panel"

@@ -89,7 +89,7 @@ export function StatisticsPage() {
     fetchStats();
   }, [fetchStats]);
 
-  // ── Build 90-Day Heatmap Grid ─────────────────────────────────────────────
+  // 
   // Grid columns = weeks (~13 weeks), rows = 7 days (Mon..Sun: 0..6)
   const heatmapWeeks = useMemo(() => {
     const last90 = getLastNDays(91); // 13 full weeks
@@ -129,7 +129,7 @@ export function StatisticsPage() {
 
   return (
     <PageContainer>
-      {/* ── Header ──────────────────────────────────────────────────────── */}
+      {/*  */}
       <header className="stats-header">
         <div className="stats-header-info">
           <div className="stats-header-badge">
@@ -143,7 +143,7 @@ export function StatisticsPage() {
         </div>
       </header>
 
-      {/* ── Loading & Error States ────────────────────────────────────────── */}
+      {/*  */}
       {loading && (
         <div className="stats-loading-wrap" aria-live="polite">
           <LoadingSpinner size={36} />
@@ -171,7 +171,7 @@ export function StatisticsPage() {
         </Card>
       )}
 
-      {/* ── Empty State: Zero Habits ──────────────────────────────────────── */}
+      {/*  */}
       {!loading && !error && stats && stats.overview.activeHabits === 0 && (
         <EmptyState
           icon={Target}
@@ -185,10 +185,10 @@ export function StatisticsPage() {
         />
       )}
 
-      {/* ── Main Statistics Content ───────────────────────────────────────── */}
+      {/*  */}
       {!loading && !error && stats && stats.overview.activeHabits > 0 && (
         <div className="stats-main-content">
-          {/* ── 4 Lifetime & Streak KPI Cards ───────────────────────────────── */}
+          {/*  */}
           <section className="stats-summary-grid" aria-label="Lifetime Overview">
             {/* Card 1: Best Current Streak */}
             <Card className="stats-kpi-card" variant="strong">
@@ -231,7 +231,7 @@ export function StatisticsPage() {
             </Card>
           </section>
 
-          {/* ── 7-Day vs 30-Day Activity Comparison Cards ───────────────────── */}
+          {/*  */}
           <section className="stats-windows-grid" aria-label="Activity Time Windows">
             {/* 7-Day Window Card */}
             <Card className="stats-window-card" variant="soft">
@@ -284,7 +284,7 @@ export function StatisticsPage() {
             </Card>
           </section>
 
-          {/* ── 90-Day GitHub-Style Activity Heatmap ─────────────────────────── */}
+          {/*  */}
           <Card className="stats-heatmap-card" variant="strong">
             <div className="stats-heatmap-header">
               <div>
@@ -344,7 +344,7 @@ export function StatisticsPage() {
             </div>
           </Card>
 
-          {/* ── Category Habit Distribution Chart ───────────────────────────── */}
+          {/*  */}
           <Card className="stats-category-card" variant="soft">
             <div className="stats-category-header">
               <div>
@@ -405,7 +405,7 @@ export function StatisticsPage() {
             </div>
           </Card>
 
-          {/* ── Detailed Habit Statistics Table ─────────────────────────────── */}
+          {/*  */}
           <Card className="stats-table-card" variant="strong">
             <div className="stats-table-header">
               <div>
@@ -492,7 +492,7 @@ export function StatisticsPage() {
         </div>
       )}
 
-      {/* ── AI Habit-Data Chat Floating Widget ───────────────────────────── */}
+      {/*  */}
       <HabitChatWidget hasHabits={stats?.overview?.activeHabits > 0} />
     </PageContainer>
   );

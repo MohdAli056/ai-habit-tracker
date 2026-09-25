@@ -13,10 +13,10 @@ import HabitLog from '../models/HabitLog.js';
 import { getLastNDays, getTodayKey, isValidDateKey } from '../utils/date.js';
 import { calcStreak } from '../utils/streak.js';
 
-// ---------------------------------------------------------------------------
-// POST /api/logs
-// Body: { habitId, completedDate? }
-// ---------------------------------------------------------------------------
+/**
+ * Mark a habit as completed for a given date.
+ * POST /api/logs
+ */
 export async function markComplete(req, res, next) {
   try {
     const { habitId, completedDate, notes } = req.body;
@@ -47,9 +47,10 @@ export async function markComplete(req, res, next) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// DELETE /api/logs/:habitId?date=YYYY-MM-DD
-// ---------------------------------------------------------------------------
+/**
+ * Remove completion for a habit on a given date.
+ * DELETE /api/logs/:habitId
+ */
 export async function markIncomplete(req, res, next) {
   try {
     const { habitId } = req.params;
@@ -73,9 +74,10 @@ export async function markIncomplete(req, res, next) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// GET /api/logs/today
-// ---------------------------------------------------------------------------
+/**
+ * Get completions for today for the authenticated user.
+ * GET /api/logs/today
+ */
 export async function getTodayLogs(req, res, next) {
   try {
     const today = getTodayKey();
@@ -86,9 +88,10 @@ export async function getTodayLogs(req, res, next) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// GET /api/logs/range?start=YYYY-MM-DD&end=YYYY-MM-DD
-// ---------------------------------------------------------------------------
+/**
+ * Get completions within a date range [start, end].
+ * GET /api/logs/range
+ */
 export async function getLogsRange(req, res, next) {
   try {
     const { start, end } = req.query;
@@ -116,10 +119,10 @@ export async function getLogsRange(req, res, next) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// GET /api/logs/heatmap?days=90
-// Returns { "YYYY-MM-DD": completionCount }
-// ---------------------------------------------------------------------------
+/**
+ * Get aggregated daily completion counts for heatmap visualization.
+ * GET /api/logs/heatmap?days=90
+ */
 export async function getHeatmap(req, res, next) {
   try {
     const days = Math.min(Number(req.query.days) || 90, 365);
@@ -143,9 +146,10 @@ export async function getHeatmap(req, res, next) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// GET /api/logs/stats/habit/:id
-// ---------------------------------------------------------------------------
+/**
+ * Get lifetime and streak statistics for a single habit.
+ * GET /api/logs/stats/habit/:id
+ */
 export async function getHabitStats(req, res, next) {
   try {
     if (!mongoose.isValidObjectId(req.params.id)) return res.status(404).json({ message: 'Habit not found.' });
@@ -178,9 +182,10 @@ export async function getHabitStats(req, res, next) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// GET /api/logs/stats
-// ---------------------------------------------------------------------------
+/**
+ * Get aggregate dashboard statistics across all active habits.
+ * GET /api/logs/stats
+ */
 export async function getAllStats(req, res, next) {
   try {
     const habits = await Habit.find({ userId: req.user._id, isArchived: false }).select('_id name icon color');
@@ -238,9 +243,10 @@ export async function getAllStats(req, res, next) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// GET /api/logs/insights?days=30
-// ---------------------------------------------------------------------------
+/**
+ * Get comprehensive analytics and trend insights for the specified period.
+ * GET /api/logs/insights
+ */
 export async function getInsights(req, res, next) {
   try {
     const rawDays = parseInt(req.query.days, 10);
@@ -436,9 +442,10 @@ export async function getInsights(req, res, next) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// GET /api/logs/statistics
-// ---------------------------------------------------------------------------
+/**
+ * Get detailed long-term performance statistics and habit breakdowns.
+ * GET /api/logs/statistics
+ */
 export async function getStatistics(req, res, next) {
   try {
     const habits = await Habit.find({ userId: req.user._id, isArchived: false })

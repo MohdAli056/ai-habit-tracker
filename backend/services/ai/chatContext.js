@@ -4,7 +4,7 @@
  * Deterministically constructs a compact analytics snapshot for the authenticated user
  * to power the AI Habit-Data Chat assistant.
  *
- * Reuses authoritative Phase 9 metric definitions:
+ * Metric definitions:
  *   - streak calculation via calcStreak()
  *   - 7-day and 30-day completion counts and scheduled rates
  *   - per-habit metrics and category distribution

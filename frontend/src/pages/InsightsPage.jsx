@@ -115,7 +115,7 @@ export function InsightsPage() {
 
   return (
     <PageContainer>
-      {/* ── Page Header ──────────────────────────────────────────────────── */}
+      {/*  */}
       <header className="insights-header">
         <div className="insights-header-info">
           <div className="insights-header-badge">
@@ -144,7 +144,7 @@ export function InsightsPage() {
         </div>
       </header>
 
-      {/* ── Loading & Error States ────────────────────────────────────────── */}
+      {/*  */}
       {loading && (
         <div className="insights-loading-wrap" aria-live="polite">
           <LoadingSpinner size={36} />
@@ -172,7 +172,7 @@ export function InsightsPage() {
         </Card>
       )}
 
-      {/* ── Empty State: Zero Habits ──────────────────────────────────────── */}
+      {/*  */}
       {!loading && !error && data && data.activeHabitCount === 0 && (
         <EmptyState
           icon={Target}
@@ -186,7 +186,7 @@ export function InsightsPage() {
         />
       )}
 
-      {/* ── Main Insights Content ─────────────────────────────────────────── */}
+      {/*  */}
       {!loading && !error && data && data.activeHabitCount > 0 && (
         <div className="insights-main-grid">
           {/* Zero Completions Notice (if active habits exist but no logs in period) */}
@@ -199,7 +199,7 @@ export function InsightsPage() {
             </div>
           )}
 
-          {/* ── Top Summary Metrics Cards (4-column grid) ───────────────────── */}
+          {/*  */}
           <section className="insights-summary-grid" aria-label="Key Performance Indicators">
             {/* Card 1: Completion Rate */}
             <Card className="insights-stat-card" variant="strong">
@@ -301,7 +301,7 @@ export function InsightsPage() {
             </Card>
           </section>
 
-          {/* ── Completion Trend Chart ──────────────────────────────────────── */}
+          {/*  */}
           <Card className="insights-chart-card" variant="soft">
             <div className="insights-chart-header">
               <div>
@@ -360,7 +360,7 @@ export function InsightsPage() {
             </div>
           </Card>
 
-          {/* ── Habit Performance: Top vs Needs Attention (2-column grid) ───── */}
+          {/*  */}
           <div className="insights-split-grid">
             {/* Top Performers */}
             <Card className="insights-performers-card" variant="strong">
@@ -462,7 +462,7 @@ export function InsightsPage() {
             </Card>
           </div>
 
-          {/* ── Category Performance Breakdown ─────────────────────────────── */}
+          {/*  */}
           <Card className="insights-category-card" variant="soft">
             <div className="insights-category-header">
               <div>

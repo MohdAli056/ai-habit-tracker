@@ -9,7 +9,7 @@
  *   - Create and edit via HabitForm slide-over
  *   - Delete confirmation dialog
  *   - Empty states for all scenarios
- *   - Today's completion state loaded on mount (Phase 6)
+ *   - Today's completion state loaded on mount
  */
 
 import { Archive, Plus, Search, Sparkles } from 'lucide-react';
@@ -39,32 +39,32 @@ const CATEGORIES = [
 ];
 
 export function HabitsPage() {
-  // ── data ─────────────────────────────────────────────────────────────────
+  // 
   const [habits, setHabits]             = useState([]);
   const [completedTodayIds, setCompletedTodayIds] = useState(new Set());
   const [streakMap, setStreakMap]       = useState({});
   const [loading, setLoading]           = useState(true);
   const [error, setError]               = useState('');
 
-  // ── ui ───────────────────────────────────────────────────────────────────
+  // 
   const [tab, setTab]           = useState('active');
   const [search, setSearch]     = useState('');
   const [category, setCategory] = useState('all');
 
-  // ── form ─────────────────────────────────────────────────────────────────
+  // 
   const [formOpen, setFormOpen]       = useState(false);
   const [editing, setEditing]         = useState(null);
   const [formLoading, setFormLoading] = useState(false);
   const [formError, setFormError]     = useState('');
 
-  // ── AI suggestion wizard ─────────────────────────────────────────────────
+  // 
   const [wizardOpen, setWizardOpen]   = useState(false);
 
-  // ── delete ───────────────────────────────────────────────────────────────
+  // 
   const [pendingDelete, setPendingDelete]   = useState(null);
   const [deleteLoading, setDeleteLoading]   = useState(false);
 
-  // ── fetch ─────────────────────────────────────────────────────────────────
+  // 
   const fetchHabits = useCallback(async () => {
     setLoading(true);
     setError('');
@@ -93,7 +93,7 @@ export function HabitsPage() {
 
   useEffect(() => { fetchHabits(); }, [fetchHabits]);
 
-  // ── client-side filter ────────────────────────────────────────────────────
+  // 
   const filtered = useMemo(() => {
     let list = habits;
     if (category !== 'all') list = list.filter((h) => h.category === category);
@@ -109,7 +109,7 @@ export function HabitsPage() {
   const activeCount   = habits.filter((h) => !h.isArchived).length;
   const archivedCount = habits.filter((h) => h.isArchived).length;
 
-  // ── completion callback (from HabitCard) ──────────────────────────────────
+  // 
   function handleCompletionChange(habitId, nowCompleted) {
     setCompletedTodayIds((prev) => {
       const next = new Set(prev);
@@ -118,7 +118,7 @@ export function HabitsPage() {
     });
   }
 
-  // ── create / edit ─────────────────────────────────────────────────────────
+  // 
   function openCreate() { setEditing(null); setFormError(''); setFormOpen(true); }
   function openEdit(habit) { setEditing(habit); setFormError(''); setFormOpen(true); }
 
@@ -142,7 +142,7 @@ export function HabitsPage() {
     }
   }
 
-  // ── archive ───────────────────────────────────────────────────────────────
+  // 
   async function handleArchive(habit) {
     try {
       await habitsApi.updateHabit(habit._id, { isArchived: !habit.isArchived });
@@ -152,7 +152,7 @@ export function HabitsPage() {
     }
   }
 
-  // ── delete ────────────────────────────────────────────────────────────────
+  // 
   function confirmDelete(habit) { setPendingDelete(habit); }
 
   async function handleDelete() {
@@ -169,7 +169,7 @@ export function HabitsPage() {
     }
   }
 
-  // ── reorder ───────────────────────────────────────────────────────────────
+  // 
   async function moveHabit(index, direction) {
     const next = index + direction;
     if (next < 0 || next >= filtered.length) return;
@@ -192,7 +192,7 @@ export function HabitsPage() {
     }
   }
 
-  // ── render ────────────────────────────────────────────────────────────────
+  // 
   return (
     <PageContainer>
       <div className="habits-header">

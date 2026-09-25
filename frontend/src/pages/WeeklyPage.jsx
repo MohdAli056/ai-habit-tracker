@@ -71,7 +71,7 @@ export function WeeklyPage() {
   const [aiError, setAiError] = useState(null);
 
 
-  // ── Derived Week Bounds ──────────────────────────────────────────────────
+  // 
   const todayKey = useMemo(() => getTodayKey(), []);
   const weekStart = useMemo(() => getWeekStart(selectedDateKey), [selectedDateKey]);
   const weekEnd = useMemo(() => getWeekEnd(selectedDateKey), [selectedDateKey]);
@@ -79,7 +79,7 @@ export function WeeklyPage() {
   const isCurrentWeek = useMemo(() => weekDays.includes(todayKey), [weekDays, todayKey]);
   const weekRangeLabel = useMemo(() => formatWeekRange(weekStart, weekEnd), [weekStart, weekEnd]);
 
-  // ── Coordinated Data Fetch ───────────────────────────────────────────────
+  // 
   const fetchWeeklyData = useCallback(async () => {
     setLoading(true);
     setError('');
@@ -113,7 +113,7 @@ export function WeeklyPage() {
     fetchWeeklyData();
   }, [fetchWeeklyData]);
 
-  // ── AI Weekly Report Cache Sync ──────────────────────────────────────────
+  // 
   useEffect(() => {
     let isMounted = true;
     async function loadCachedReport() {
@@ -144,7 +144,7 @@ export function WeeklyPage() {
     };
   }, [weekStart]);
 
-  // ── AI Report Generation Handler ─────────────────────────────────────────
+  // 
   async function handleGenerateReport(useMock = false) {
     setAiLoading(true);
     setAiError(null);
@@ -164,7 +164,7 @@ export function WeeklyPage() {
   }
 
 
-  // ── Lookup for Cell Completions ──────────────────────────────────────────
+  // 
   // Set of "habitId:dateKey" for fast O(1) checks
   const completedCellSet = useMemo(() => {
     const set = new Set();
@@ -174,7 +174,7 @@ export function WeeklyPage() {
     return set;
   }, [weeklyLogs]);
 
-  // ── Weekly Metrics ───────────────────────────────────────────────────────
+  // 
   const activeHabitsCount = habits.length;
   const activeHabitIdSet = useMemo(() => new Set(habits.map((h) => String(h._id))), [habits]);
 
@@ -230,7 +230,7 @@ export function WeeklyPage() {
     return map;
   }, [habits, weeklyLogs]);
 
-  // ── Cell Toggle Handler ──────────────────────────────────────────────────
+  // 
   async function handleToggleCell(habitId, dateKey) {
     const cellKey = `${habitId}:${dateKey}`;
     if (cellLoading[cellKey]) return; // In-flight guard
@@ -283,7 +283,7 @@ export function WeeklyPage() {
     }
   }
 
-  // ── Navigation Handlers ──────────────────────────────────────────────────
+  // 
   function handlePrevWeek() {
     setSelectedDateKey((prev) => shiftWeek(prev, -1));
   }
@@ -296,7 +296,7 @@ export function WeeklyPage() {
     setSelectedDateKey(getTodayKey());
   }
 
-  // ── Loading View ─────────────────────────────────────────────────────────
+  // 
   if (loading && habits.length === 0) {
     return (
       <PageContainer className="weekly-page">
@@ -308,7 +308,7 @@ export function WeeklyPage() {
     );
   }
 
-  // ── Error View ───────────────────────────────────────────────────────────
+  // 
   if (error && habits.length === 0) {
     return (
       <PageContainer className="weekly-page">
@@ -590,7 +590,7 @@ export function WeeklyPage() {
         </Card>
       )}
 
-      {/* ── AI Weekly Reflection Section (Phase 11) ── */}
+      {/*  */}
       <section className="weekly-ai-section" aria-label="AI Weekly Reflection">
         {aiLoading ? (
           <Card className="weekly-ai-card weekly-ai-loading-card">

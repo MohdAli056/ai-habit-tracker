@@ -6,8 +6,7 @@
  *
  * Adheres to strict privacy boundaries:
  *   - Zero MongoDB ObjectIds, passwords, hashes, emails, or JWTs.
- *   - Strictly scoped by authenticated userId.
- *   - Reuses existing Phase 6 & Phase 9 analytics/date/streak utilities.
+ *   - Built on deterministic analytics, date, and streak utilities.
  */
 
 import Habit from '../../models/Habit.js';

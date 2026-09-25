@@ -73,7 +73,7 @@ function toUTCKey(d) {
 export function DashboardPage() {
   const { user } = useAuth();
 
-  // ── Data State ───────────────────────────────────────────────────────────
+  // 
   const [habits, setHabits] = useState([]);
   const [stats, setStats] = useState(null);
   const [completedTodayIds, setCompletedTodayIds] = useState(new Set());
@@ -81,7 +81,7 @@ export function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // ── AI Suggestion Wizard & HabitForm State ───────────────────────────────
+  // 
   const [wizardOpen, setWizardOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [formInitialData, setFormInitialData] = useState(null);
@@ -95,7 +95,7 @@ export function DashboardPage() {
   const weekAgoDate = new Date(now.getTime() - 7 * 86400000);
   const weekAgoKey = toUTCKey(weekAgoDate);
 
-  // ── Coordinated Data Fetch ───────────────────────────────────────────────
+  // 
   const fetchDashboardData = useCallback(async () => {
     setLoading(true);
     setError('');
@@ -130,7 +130,7 @@ export function DashboardPage() {
     fetchDashboardData();
   }, [fetchDashboardData]);
 
-  // ── Derived Metrics ──────────────────────────────────────────────────────
+  // 
   const activeHabitsCount = habits.length;
   const completedTodayCount = habits.filter((h) => completedTodayIds.has(String(h._id))).length;
   const progressPercentage =
@@ -161,7 +161,7 @@ export function DashboardPage() {
   const totalCompletions = stats?.totalCompletions ?? 0;
   const completionsLast30 = stats?.completionsLast30Days ?? 0;
 
-  // ── Recovery Eligible Habits ─────────────────────────────────────────────
+  // 
   const eligibleHabits = useMemo(() => {
     if (!stats?.habits || !habits || habits.length === 0) return [];
     const activeHabitIds = new Set(habits.map((h) => String(h._id)));
@@ -185,7 +185,7 @@ export function DashboardPage() {
     }
   }
 
-  // ── Reactive Completion Handler ──────────────────────────────────────────
+  // 
   function handleCompletionChange(habitId, nowCompleted) {
     setCompletedTodayIds((prev) => {
       const next = new Set(prev);
@@ -218,7 +218,7 @@ export function DashboardPage() {
     }
   }
 
-  // ── Habit Creation from Suggestion Handler ───────────────────────────────
+  // 
   async function handleCreateHabit(data) {
     setFormLoading(true);
     try {
@@ -233,7 +233,7 @@ export function DashboardPage() {
     }
   }
 
-  // ── Time-based Greeting & Motivation ─────────────────────────────────────
+  // 
   const hour = new Date().getHours();
   let timeGreeting = 'Good morning';
   if (hour >= 12 && hour < 17) timeGreeting = 'Good afternoon';
@@ -256,7 +256,7 @@ export function DashboardPage() {
     motivationalSubtitle = `${completedTodayCount} of ${activeHabitsCount} done. Keep up the strong momentum!`;
   }
 
-  // ── Render Loading ───────────────────────────────────────────────────────
+  // 
   if (loading) {
     return (
       <PageContainer className="dashboard-page">
@@ -268,7 +268,7 @@ export function DashboardPage() {
     );
   }
 
-  // ── Render Error ─────────────────────────────────────────────────────────
+  // 
   if (error && habits.length === 0) {
     return (
       <PageContainer className="dashboard-page">
